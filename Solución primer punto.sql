@@ -64,4 +64,27 @@ NESTED TABLE inventario STORE AS store_inventario
 alter table registro
   add constraint foranea_rbodega
   foreign key (cod_bodega)
-  references bodega (cod_bodega);
+  references bodega (cod_bodega); 
+
+--Código 
+CREATE OR REPLACE TRIGGER llenado_registro 
+BEFORE INSERT ON pedido
+FOR EACH ROW 
+DECLARE
+validacion NUMBER := 0;
+vblbodega NUMBER(5);
+vblfecha NUMBER(5);
+vblcod_producto NUMBER(3); 
+vblcantidad NUMBER(10);
+bodega_null EXCEPTION;
+BEGIN 
+	SELECT count(*) INTO validacion FROM bodega WHERE cod_bodega = :NEW.cod_bodega;
+	IF (validacion > 0) THEN
+	DBMS_OUTPUT.PUT_LINE('cacaperro');
+	ELSE 
+		RAISE bodega_null;
+	END IF;
+EXCEPTION
+WHEN bodega_null THEN
+	RAISE_APPLICATION_ERROR(-20505, '¡BODEGA INEXISTENTE!');	
+END;

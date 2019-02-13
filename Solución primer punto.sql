@@ -24,21 +24,18 @@ OBJECT(cod_bodega NUMBER(3),
 /
 DROP TABLE pedido;
 CREATE TABLE pedido OF pedido_type
-(cod_bodega, fecha PRIMARY KEY) 
-NESTED TABLE detalle STORE AS store_detalle
+NESTED TABLE detalles STORE AS pedido_tab
 ((PRIMARY KEY(NESTED_TABLE_ID, cod_producto)));
 
---Crear foraneas
+alter table pedido ADD PRIMARY KEY (cod_bodega, fecha);
+
+--Crear foraneas de pedido y detalle
 
 alter table pedido
   add constraint foranea_bodega
   foreign key (cod_bodega)
   references bodega (cod_bodega);
 
-alter table detalle
-  add constraint foranea_producto
-  foreign key (cod_producto)
-  references producto (cod_producto);
 
 -- Crear tabla aidada registro
 
@@ -62,14 +59,9 @@ CREATE TABLE registro OF registro_type
 NESTED TABLE inventario STORE AS store_inventario
 ((PRIMARY KEY(NESTED_TABLE_ID, cod_producto)));
 
---Crear foraneas
+--Crear foraneas de registro e inventario
 
 alter table registro
   add constraint foranea_rbodega
   foreign key (cod_bodega)
   references bodega (cod_bodega);
-
-alter table inventario
-  add constraint foranea_rproducto
-  foreign key (cod_producto)
-  references producto (cod_producto);

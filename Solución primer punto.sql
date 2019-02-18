@@ -27,7 +27,10 @@ CREATE TABLE pedido OF pedido_type
 NESTED TABLE detalles STORE AS pedido_tab
 ((PRIMARY KEY(NESTED_TABLE_ID, cod_producto)));
 
+
 alter table pedido ADD PRIMARY KEY (cod_bodega, fecha);
+alter table pedido ADD CONSTRAINT  fecha_positiva CHECK(fecha > 0);
+
 
 --Crear foraneas de pedido y detalle
 
@@ -71,25 +74,48 @@ alter table registro
   BEFORE INSERT ON pedido
   FOR EACH ROW 
   DECLARE
-  existencias_previas NUMBER :=0;
   validacion NUMBER := 0;
   bodega_null EXCEPTION;
+  detalles_expected EXCEPTION;
+  producto_unregister EXCEPTION; 
+
   BEGIN 
     SELECT count(*) INTO validacion FROM bodega WHERE cod_bodega = :NEW.cod_bodega;
+
       IF (validacion > 0) THEN
+        IF(:NEW.detalles.COUNT>5)THEN
+          RAISE detalles_expected;
+        ELSE
           FOR i IN 1..:NEW.detalles.COUNT LOOP
-              UPDATE TABLE(SELECT inventario
-                           FROM registro r
-                           WHERE r.cod_bodega=:NEW.cod_bodega)
-              SET existencias = existencias+:NEW.detalles(i).cantidad
-              WHERE cod_producto = :NEW.detalles(i).cod_producto;
-          END LOOP;	    
+                SELECT count(*) INTO validacion FROM producto WHERE cod_producto = :NEW.detalles(i).cod_producto;
+                IF (validacion>0) THEN
+                  IF(:NEW.detalles(i).cantidad<1 OR :NEW.detalles(i).cantidad>50)THEN
+                      DBMS_OUTPUT.PUT_LINE('la cantidad de un detalle debe estar entre 1 y 50 unidades');
+                      CONTINUE;
+                  ELSE              
+                    UPDATE TABLE(SELECT inventario
+                                FROM registro r
+                                WHERE r.cod_bodega=:NEW.cod_bodega)
+                    SET existencias = existencias+:NEW.detalles(i).cantidad
+                    WHERE cod_producto = :NEW.detalles(i).cod_producto;
+                  END IF;
+                ELSE                  
+                   RAISE producto_unregister; 
+                   CONTINUE;
+                END IF;                
+          END LOOP;	
+        END IF;
+              
     ELSE 
       RAISE bodega_null;
     END IF;
   EXCEPTION
   WHEN bodega_null THEN
     RAISE_APPLICATION_ERROR(-20505, '¡BODEGA INEXISTENTE!');	
+  WHEN detalles_expected THEN
+    RAISE_APPLICATION_ERROR(-20505, '¡MAXIMO 5 DETALLES POR PEDIDO!');
+  WHEN producto_unregister THEN
+    RAISE_APPLICATION_ERROR(-20505, '¡PRODUCTO INEXISTENTE!');
   WHEN OTHERS THEN 
     DBMS_OUTPUT.PUT_LINE('');
 	

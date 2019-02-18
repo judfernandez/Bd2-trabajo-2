@@ -19,3 +19,11 @@ VALUES (4, 'Botella de jugo de cerdo');
 
 INSERT INTO producto (cod_producto, nom_producto) 
 VALUES (5, 'Paleta de miel de oveja');
+
+INSERT INTO pedido VALUES (115,3,nest_detalle(detalle_tipo(1,100),detalle_tipo(3,80)));
+
+INSERT INTO registro VALUES(115,nest_inventario(inventario_tipo(1,55),
+                                                inventario_tipo(2,30),
+                                                inventario_tipo(3,80),
+                                                inventario_tipo(4,200),
+                                                inventario_tipo(5,200)));

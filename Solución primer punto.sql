@@ -66,25 +66,32 @@ alter table registro
   foreign key (cod_bodega)
   references bodega (cod_bodega); 
 
---Código 
-CREATE OR REPLACE TRIGGER llenado_registro 
-BEFORE INSERT ON pedido
-FOR EACH ROW 
-DECLARE
-validacion NUMBER := 0;
-vblbodega NUMBER(5);
-vblfecha NUMBER(5);
-vblcod_producto NUMBER(3); 
-vblcantidad NUMBER(10);
-bodega_null EXCEPTION;
-BEGIN 
-	SELECT count(*) INTO validacion FROM bodega WHERE cod_bodega = :NEW.cod_bodega;
-	IF (validacion > 0) THEN
-	DBMS_OUTPUT.PUT_LINE('cacaperro');
-	ELSE 
-		RAISE bodega_null;
-	END IF;
-EXCEPTION
-WHEN bodega_null THEN
-	RAISE_APPLICATION_ERROR(-20505, '¡BODEGA INEXISTENTE!');	
-END;
+--Código del trigguer 50%
+  CREATE OR REPLACE TRIGGER llenado_registro 
+  BEFORE INSERT ON pedido
+  FOR EACH ROW 
+  DECLARE
+  existencias_previas NUMBER :=0;
+  validacion NUMBER := 0;
+  bodega_null EXCEPTION;
+  BEGIN 
+    SELECT count(*) INTO validacion FROM bodega WHERE cod_bodega = :NEW.cod_bodega;
+      IF (validacion > 0) THEN
+          FOR i IN 1..:NEW.detalles.COUNT LOOP
+              UPDATE TABLE(SELECT inventario
+                           FROM registro r
+                           WHERE r.cod_bodega=:NEW.cod_bodega)
+              SET existencias = existencias+:NEW.detalles(i).cantidad
+              WHERE cod_producto = :NEW.detalles(i).cod_producto;
+          END LOOP;	    
+    ELSE 
+      RAISE bodega_null;
+    END IF;
+  EXCEPTION
+  WHEN bodega_null THEN
+    RAISE_APPLICATION_ERROR(-20505, '¡BODEGA INEXISTENTE!');	
+  WHEN OTHERS THEN 
+    DBMS_OUTPUT.PUT_LINE('');
+	
+  END;
+  /

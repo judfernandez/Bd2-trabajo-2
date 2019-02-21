@@ -1,76 +1,5 @@
---Punto 1
--- Crar tabla producto
-DROP TABLE producto;
-CREATE TABLE producto(cod_producto NUMBER(1)PRIMARY KEY, nom_producto VARCHAR(30));
--- Crear tabla bodega
-DROP TABLE bodega;
-CREATE TABLE bodega(cod_bodega NUMBER(5)PRIMARY KEY, nom_bodega VARCHAR(30), ubicacion_x NUMBER(2) CHECK(ubicacion_x BETWEEN 1 and 99)
-, ubicacion_y NUMBER(2) CHECK(ubicacion_y BETWEEN 1 and 99));
--- Crear tabla anidada pedido
 
-DROP TYPE detalle_tipo FORCE;
-CREATE OR REPLACE TYPE detalle_tipo
-AS OBJECT( 
- cod_producto NUMBER(3), 
- cantidad NUMBER(10));
-/
-DROP TYPE nest_detalle FORCE;
-CREATE OR REPLACE TYPE nest_detalle AS TABLE OF detalle_tipo;
-/
-DROP TYPE pedido_type FORCE;
-CREATE OR REPLACE TYPE pedido_type AS 
-OBJECT(cod_bodega NUMBER(3), 
-       fecha NUMBER(5),
-       detalles nest_detalle);
-/
-DROP TABLE pedido;
-CREATE TABLE pedido OF pedido_type
-NESTED TABLE detalles STORE AS pedido_tab
-((PRIMARY KEY(NESTED_TABLE_ID, cod_producto)));
-
-
-alter table pedido ADD PRIMARY KEY (cod_bodega, fecha);
-alter table pedido ADD CONSTRAINT  fecha_positiva CHECK(fecha > 0);
-
-
---Crear foraneas de pedido y detalle
-
-alter table pedido
-  add constraint foranea_bodega
-  foreign key (cod_bodega)
-  references bodega (cod_bodega);
-
-
--- Crear tabla aidada registro
-
-DROP TYPE inventario_tipo FORCE;
-CREATE OR REPLACE TYPE inventario_tipo
-AS OBJECT( 
- cod_producto NUMBER(3), 
- existencias NUMBER(10));
-/
-DROP TYPE nest_inventario FORCE;
-CREATE OR REPLACE TYPE nest_inventario AS TABLE OF inventario_tipo;
-/
-DROP TYPE registro_type FORCE;
-CREATE OR REPLACE TYPE registro_type AS 
-OBJECT(cod_bodega NUMBER(3), 
-       inventario nest_inventario);
-/
-DROP TABLE registro;
-CREATE TABLE registro OF registro_type
-(cod_bodega PRIMARY KEY) 
-NESTED TABLE inventario STORE AS store_inventario
-((PRIMARY KEY(NESTED_TABLE_ID, cod_producto)));
-
---Crear foraneas de registro e inventario
-
-alter table registro
-  add constraint foranea_rbodega
-  foreign key (cod_bodega)
-  references bodega (cod_bodega); 
-
---Código del trigguer 50%
+--trigger para control de insercion en pedidos: maximo numero de detalles, actualiza registros, control de cantidades
   CREATE OR REPLACE TRIGGER llenado_registro 
   BEFORE INSERT ON pedido
   FOR EACH ROW 
@@ -79,20 +8,20 @@ alter table registro
   bodega_null EXCEPTION;
   detalles_expected EXCEPTION;
   producto_unregister EXCEPTION; 
+  detalles_cantidad EXCEPTION;
 
   BEGIN 
     SELECT count(*) INTO validacion FROM bodega WHERE cod_bodega = :NEW.cod_bodega;
 
       IF (validacion > 0) THEN
         IF(:NEW.detalles.COUNT>5)THEN
-          RAISE detalles_expected;
+          RAISE detalles_expected;          
         ELSE
           FOR i IN 1..:NEW.detalles.COUNT LOOP
                 SELECT count(*) INTO validacion FROM producto WHERE cod_producto = :NEW.detalles(i).cod_producto;
                 IF (validacion>0) THEN
                   IF(:NEW.detalles(i).cantidad<1 OR :NEW.detalles(i).cantidad>50)THEN
-                      DBMS_OUTPUT.PUT_LINE('la cantidad de un detalle debe estar entre 1 y 50 unidades');
-                      CONTINUE;
+                       RAISE detalles_cantidad;
                   ELSE              
                     UPDATE TABLE(SELECT inventario
                                 FROM registro r
@@ -100,9 +29,9 @@ alter table registro
                     SET existencias = existencias+:NEW.detalles(i).cantidad
                     WHERE cod_producto = :NEW.detalles(i).cod_producto;
                   END IF;
-                ELSE                  
+                ELSE  
                    RAISE producto_unregister; 
-                   CONTINUE;
+                  
                 END IF;                
           END LOOP;	
         END IF;
@@ -117,50 +46,64 @@ alter table registro
     RAISE_APPLICATION_ERROR(-20505, '¡MAXIMO 5 DETALLES POR PEDIDO!');
   WHEN producto_unregister THEN
     RAISE_APPLICATION_ERROR(-20505, '¡PRODUCTO INEXISTENTE!');
+  WHEN detalles_cantidad THEN
+    RAISE_APPLICATION_ERROR(-20505, '¡LOS DETALLES DEBEN ESTAR ENTRE 1 Y 50 UNIDADES');
   WHEN OTHERS THEN 
-    DBMS_OUTPUT.PUT_LINE('');
-	
+     RAISE_APPLICATION_ERROR(-20505,'HA OCURRIDO UN ERROR');	
   END;
   /
 
--- Trigger para evitar 10 o más elementos en bodega
-
-CREATE OR REPLACE TRIGGER limitar_bodegas 
+-- Trigger para asegurar maximo 10 bodegas y espaciadas 5 unidades
+CREATE OR REPLACE TRIGGER bodegaBefore 
 BEFORE INSERT ON bodega
 FOR EACH ROW
 DECLARE
 bodega_full EXCEPTION;
+espacio_wrong EXCEPTION;
+validacion NUMBER:=0;
+CURSOR espacios IS SELECT ubicacion_x, ubicacion_y FROM bodega;
 BEGIN
-  IF ((SELECT count(* FROM bodega)) >= 10) THEN
-    RAISE bodega_full;
+
+  SELECT count(*) INTO validacion FROM bodega; 
+  IF (validacion >= 10) THEN
+    RAISE bodega_full; 
+  ELSE
+    FOR i IN espacios LOOP
+      IF(SQRT((:NEW.ubicacion_x-i.ubicacion_x)**2+(:NEW.ubicacion_y-i.ubicacion_y)**2)<=5)THEN
+        RAISE espacio_wrong; 
+      END IF;
+    END LOOP;
   END IF;
   EXCEPTION
   WHEN bodega_full THEN
     RAISE_APPLICATION_ERROR(-20505, '¡DEPOSITO LLENO(NO SE PERMITEN MAS DE DIEZ BODEGAS)!');
+  WHEN espacio_wrong THEN 
+    RAISE_APPLICATION_ERROR(-20505, '¡LAS BODEGAS DEBEN TENER UN ESPACIO LIBRE DE 5 UNIDADES A A LA REDONDA!');
+  WHEN OTHERS THEN
+    RAISE_APPLICATION_ERROR(-20505, '¡HA OCURRIDO UN ERROR!');
 END;  
 /
 
--- Trigger para evitar 5 o más elementos en detalle.pedido
-
-CREATE OR REPLACE TRIGGER limitar_detalle
-BEFORE INSERT ON pedido
+--trigger para inicializar los registros de una bodega insertada
+CREATE OR REPLACE TRIGGER bodegaAfter
+AFTER INSERT ON bodega
 FOR EACH ROW
-DECLARE
-detalle_full EXCEPTION;
 BEGIN
-  IF ((TABLE(count(SELECT detalle 
-                    FROM pedido 
-                    WHERE cod_bodega = :NEW.cod_bodega, fecha = :NEW.fecha))) >= 5) THEN
-    RAISE detalle_full;
-  END IF;
+  INSERT into registro values(:NEW.cod_bodega,nest_inventario(inventario_tipo(1,0),
+                                                inventario_tipo(2,0),
+                                                inventario_tipo(3,0),
+                                                inventario_tipo(4,0),
+                                                inventario_tipo(5,0)));
   EXCEPTION
-  WHEN detalle_full THEN
-    RAISE_APPLICATION_ERROR(-20505, '¡BODEGA LLENA(NO SE PERMITEN MAS DE 5 ITEMS)!');
+  WHEN OTHERS THEN
+    RAISE_APPLICATION_ERROR(-20505, '¡HA OCURRIDO UN ERROR!');
 END;  
 /
 
+--trigger par
 
-SELECT cod_bodega, t2. * FROM pedido t, TABLE(t.detalle) t2;
+
+  
 
 
 

@@ -7,6 +7,7 @@ DROP TABLE bodega;
 CREATE TABLE bodega(cod_bodega NUMBER(5)PRIMARY KEY, nom_bodega VARCHAR(30), ubicacion_x NUMBER(2) CHECK(ubicacion_x BETWEEN 1 and 99)
 , ubicacion_y NUMBER(2) CHECK(ubicacion_y BETWEEN 1 and 99));
 -- Crear tabla anidada pedido
+
 DROP TYPE detalle_tipo FORCE;
 CREATE OR REPLACE TYPE detalle_tipo
 AS OBJECT( 
@@ -121,3 +122,108 @@ alter table registro
 	
   END;
   /
+
+-- Trigger para evitar 10 o más elementos en bodega
+
+CREATE OR REPLACE TRIGGER limitar_bodegas 
+BEFORE INSERT ON bodega
+FOR EACH ROW
+DECLARE
+bodega_full EXCEPTION;
+BEGIN
+  IF ((SELECT count(* FROM bodega)) >= 10) THEN
+    RAISE bodega_full;
+  END IF;
+  EXCEPTION
+  WHEN bodega_full THEN
+    RAISE_APPLICATION_ERROR(-20505, '¡DEPOSITO LLENO(NO SE PERMITEN MAS DE DIEZ BODEGAS)!');
+END;  
+/
+
+-- Trigger para evitar 5 o más elementos en detalle.pedido
+
+CREATE OR REPLACE TRIGGER limitar_detalle
+BEFORE INSERT ON pedido
+FOR EACH ROW
+DECLARE
+detalle_full EXCEPTION;
+BEGIN
+  IF ((TABLE(count(SELECT detalle 
+                    FROM pedido 
+                    WHERE cod_bodega = :NEW.cod_bodega, fecha = :NEW.fecha))) >= 5) THEN
+    RAISE detalle_full;
+  END IF;
+  EXCEPTION
+  WHEN detalle_full THEN
+    RAISE_APPLICATION_ERROR(-20505, '¡BODEGA LLENA(NO SE PERMITEN MAS DE 5 ITEMS)!');
+END;  
+/
+
+
+SELECT cod_bodega, t2. * FROM pedido t, TABLE(t.detalle) t2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- Lo guardo po si acaso equis dé
+CREATE OR REPLACE TYPE detalles_sub
+AS OBJECT( 
+ cod_producto NUMBER(3), 
+ cantidad NUMBER(10));
+/
+
+CREATE OR REPLACE TYPE detalles
+AS VARRAY (5) of detalles_sub
+/
+
+CREATE TABLE pedido
+(cod_bodega NUMBER(3),
+ fecha NUMBER(5),
+ detalle detalles);
+/

@@ -99,23 +99,3 @@ BEGIN
     RAISE_APPLICATION_ERROR(-20505, '¡HA OCURRIDO UN ERROR!');
 END;  
 /
-
-
----------------------------NO CONSIDERAR LO DE ABAJO----------------------------------------------
-
--- Lo guardo po si acaso equis dé
-CREATE OR REPLACE TYPE detalles_sub
-AS OBJECT( 
- cod_producto NUMBER(3), 
- cantidad NUMBER(10));
-/
-
-CREATE OR REPLACE TYPE detalles
-AS VARRAY (5) of detalles_sub
-/
-
-CREATE TABLE pedido
-(cod_bodega NUMBER(3),
- fecha NUMBER(5),
- detalle detalles);
-/

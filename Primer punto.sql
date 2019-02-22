@@ -3,23 +3,31 @@
 INSERT INTO bodega (cod_bodega, nom_bodega, ubicacion_x, ubicacion_y) 
 VALUES (110,'bodega 1',15,15);
 INSERT INTO bodega (cod_bodega, nom_bodega, ubicacion_x, ubicacion_y) 
-VALUES (111,'bodega 2',15,15);
+VALUES (111,'bodega 2',10,10);
 INSERT INTO bodega (cod_bodega, nom_bodega, ubicacion_x, ubicacion_y) 
-VALUES (112,'bodega 3',15,15);
+VALUES (112,'bodega 3', 1, 1);
 INSERT INTO bodega (cod_bodega, nom_bodega, ubicacion_x, ubicacion_y) 
-VALUES (113,'bodega 4',15,15);
+VALUES (113,'bodega 4', 6, 6);
 INSERT INTO bodega (cod_bodega, nom_bodega, ubicacion_x, ubicacion_y) 
-VALUES (114,'bodega 5',15,15);
+VALUES (114,'bodega 5',42,10);
 INSERT INTO bodega (cod_bodega, nom_bodega, ubicacion_x, ubicacion_y) 
-VALUES (115,'bodega 6',15,15);
+VALUES (115,'bodega 6',2,15);
 INSERT INTO bodega (cod_bodega, nom_bodega, ubicacion_x, ubicacion_y) 
-VALUES (116,'bodega 7',15,15);
+VALUES (116,'bodega 7',99,13);
 INSERT INTO bodega (cod_bodega, nom_bodega, ubicacion_x, ubicacion_y) 
-VALUES (117,'bodega 8',15,15);
+VALUES (117,'bodega 8',80, 78);
 INSERT INTO bodega (cod_bodega, nom_bodega, ubicacion_x, ubicacion_y) 
-VALUES (118,'bodega 9',15,15);
+VALUES (118,'bodega 9',25,78);
 INSERT INTO bodega (cod_bodega, nom_bodega, ubicacion_x, ubicacion_y) 
-VALUES (119,'bodega 10',15,15);
+VALUES (119,'bodega 10',15,50);
+
+-- CASOS en los que debe fallar
+INSERT INTO bodega (cod_bodega, nom_bodega, ubicacion_x, ubicacion_y) 
+VALUES (120,'bodega 11',50,50); --FALLA POR QUE ES EL ELEMENTO 11
+INSERT INTO bodega (cod_bodega, nom_bodega, ubicacion_x, ubicacion_y) 
+VALUES (113,'bodega 4',15,15); --FALLA POR 5 UNIDADES A LA REDONDA
+INSERT INTO bodega (cod_bodega, nom_bodega, ubicacion_x, ubicacion_y) 
+VALUES (110,'bodega 1',70,70); --FALLA POR BODEGA REPETIDA
 
 -- Insert para producto
 

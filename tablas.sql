@@ -25,7 +25,7 @@ OBJECT(cod_bodega NUMBER(3),
 /
 DROP TABLE pedido;
 CREATE TABLE pedido OF pedido_type
-NESTED TABLE detalles STORE AS pedido_tab
+NESTED TABLE detalles STORE AS store_detalle
 ((PRIMARY KEY(NESTED_TABLE_ID, cod_producto)));
 
 

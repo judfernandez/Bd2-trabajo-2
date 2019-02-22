@@ -78,7 +78,7 @@ BEGIN
   WHEN bodega_full THEN
     RAISE_APPLICATION_ERROR(-20505, '¡DEPOSITO LLENO(NO SE PERMITEN MAS DE DIEZ BODEGAS)!');
   WHEN espacio_wrong THEN 
-    RAISE_APPLICATION_ERROR(-20505, '¡LAS BODEGAS DEBEN TENER UN ESPACIO LIBRE DE 5 UNIDADES A A LA REDONDA!');
+    RAISE_APPLICATION_ERROR(-20505, '¡LAS BODEGAS DEBEN TENER UN ESPACIO LIBRE DE 5 UNIDADESA L A REDONDA!');
   WHEN OTHERS THEN
     RAISE_APPLICATION_ERROR(-20505, '¡HA OCURRIDO UN ERROR!');
 END;  
@@ -100,59 +100,8 @@ BEGIN
 END;  
 /
 
---trigger par
 
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---------------------------NO CONSIDERAR LO DE ABAJO----------------------------------------------
 
 -- Lo guardo po si acaso equis dé
 CREATE OR REPLACE TYPE detalles_sub

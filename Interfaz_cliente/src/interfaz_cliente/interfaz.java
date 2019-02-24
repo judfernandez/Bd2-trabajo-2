@@ -393,10 +393,6 @@ public class interfaz extends javax.swing.JFrame {
         e = 0;
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        a = 1;
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
     private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
         e = 1;
     }//GEN-LAST:event_jCheckBox5ActionPerformed
@@ -433,6 +429,10 @@ public class interfaz extends javax.swing.JFrame {
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField5ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        a = 1;
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
   
     
     /**

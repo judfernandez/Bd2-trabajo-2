@@ -4,3 +4,6 @@
 /Ruta/build/
 /mainapp/nbproject/private/
 /mainapp/build/
+mainapp/nbproject/genfiles.properties
+mainapp/nbproject/build-impl.xml
+*.xml

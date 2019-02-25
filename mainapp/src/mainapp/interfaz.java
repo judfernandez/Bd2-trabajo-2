@@ -420,7 +420,7 @@ public class interfaz extends javax.swing.JFrame {
         }
 
         try { // Se establece la conexi�n con la base de datos Oracle Express
-            conn = DriverManager.getConnection("jdbc:oracle:thin:@santi-PC:1521:xe", "santiago", "santiago");
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@LAPTOP-UNKNNU64:1521:xe", "gato", "gato");
             sentencia = conn.createStatement();
         } catch (SQLException e) {
             System.out.println("No hay conexi�n con la base de datos.");

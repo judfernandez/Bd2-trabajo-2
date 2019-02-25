@@ -24,7 +24,11 @@ public class interfaz extends javax.swing.JFrame {
     public interfaz() {
         initComponents();
     }
-
+    
+    public List<String> passHashmap(int cod_bodega){
+        return this.dictionary.get(cod_bodega);
+    }
+    public Map<Integer, List<String>> dictionary = new HashMap<>();
     public List<Integer> cod_bodegas_rutas = new ArrayList<>();
     Integer cantidad_1 = 0;
     Integer cantidad_2 = 0;
@@ -398,7 +402,6 @@ public class interfaz extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         List<String> updates = new ArrayList<>();
-        Map<Integer, List<String>> dictionary = new HashMap<Integer, List<String>>();
 
         Connection conn = null;
         Statement sentencia = null;
@@ -693,9 +696,6 @@ public class interfaz extends javax.swing.JFrame {
 
             for (int n : dictionary.keySet()) {
                 if (dictionary.get(n).size() > 0) {
-                    System.out.println("La wea esta en el for");
-                    System.out.println("esto vale n " + n);
-                    System.out.println("esto es dictionary " + dictionary.keySet());
                     this.cod_bodegas_rutas.add(n);
                 }
                 System.out.println(dictionary.get(n));
@@ -707,6 +707,7 @@ public class interfaz extends javax.swing.JFrame {
             }
             SquaredPaper DrawWindow = new SquaredPaper();
             DrawWindow.cod_bodegas_rutas = this.cod_bodegas_rutas;
+            DrawWindow.dictionary = this.dictionary;
             DrawWindow.setSize(500, 500);
             DrawWindow.setResizable(true);
             DrawWindow.setLocation(200, 50);

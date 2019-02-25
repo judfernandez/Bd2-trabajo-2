@@ -5,11 +5,14 @@ import java.awt.*;
 import java.sql.*;
 import java.math.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SquaredPaper extends JFrame {
 
     public java.util.List<Integer> cod_bodegas_rutas = new ArrayList<>();
-    int xi, yi, xf, yf;
+    Map<Integer, java.util.List<String>> dictionary = new HashMap<Integer, java.util.List<String>>();
+    int xi, yi, xf, yf, orden;
     String nombre_bodega;
 
     public void paint(Graphics g) {
@@ -56,28 +59,14 @@ public class SquaredPaper extends JFrame {
         }
 
         try {
-            String c1 = "select * from bodega where ";
-            for (int i : this.cod_bodegas_rutas) {
-                if (this.cod_bodegas_rutas.size() - 1 == this.cod_bodegas_rutas.indexOf(i)) {
-                    c1 = c1 + "cod_bodega=" + Integer.toString(i);
-                } else {
-                    c1 = c1 + "cod_bodega=" + Integer.toString(i) + " OR ";
-                }
-
-            }
-            String p1 = "select r1.cod_bodega AS orden, r1.ubicacion_x AS a, r1.ubicacion_y AS b, r2.ubicacion_x AS c, r2.ubicacion_y AS d from ";
-            String sub1 = "(" + c1 + ") r1,";
-            String sub2 = "(" + c1 + ") r2 ";
-            String p3 = "WHERE r1.cod_bodega = r2.cod_bodega-1 ORDER BY r1.cod_bodega";
-            String queryfinal = p1 + sub1 + sub2 + p3;
-            System.out.println(queryfinal);
-
+            
             for (int i = 0; i < this.cod_bodegas_rutas.size(); i++) {
                 if (i != this.cod_bodegas_rutas.size() - 1) {
                     String queryIndividual = ("select r1.cod_bodega AS orden,r1.nom_bodega AS nombre, r1.ubicacion_x AS a, r1.ubicacion_y AS b from bodega r1 where r1.cod_bodega = " + Integer.toString(this.cod_bodegas_rutas.get(i)));
                     resultado = sentencia.executeQuery(queryIndividual);
 
                     while (resultado.next()) {
+                        orden = resultado.getInt("orden");
                         nombre_bodega = resultado.getString("nombre");
                         xi = resultado.getInt("a");
                         yi = resultado.getInt("b");
@@ -95,6 +84,7 @@ public class SquaredPaper extends JFrame {
                     resultado = sentencia.executeQuery(queryIndividual);
 
                     while (resultado.next()) {
+                        orden = resultado.getInt("orden");
                         nombre_bodega = resultado.getString("nombre");
                         xi = resultado.getInt("a");
                         yi = resultado.getInt("b");
@@ -103,6 +93,10 @@ public class SquaredPaper extends JFrame {
                     }
                     
                 }
+                
+               for(int j=0; j<this.dictionary.get(orden).size(); j++){
+                   g.drawString(this.dictionary.get(orden).get(j), xi * 10, (yi -2)* 10);
+               }
                 g.drawString(nombre_bodega, xi * 10, yi * 10);
                 g.drawLine(xi * 10, yi * 10, xf * 10, yf * 10);
             }

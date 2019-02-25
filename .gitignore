@@ -7,3 +7,7 @@
 mainapp/nbproject/genfiles.properties
 mainapp/nbproject/build-impl.xml
 *.xml
+*.xml
+mainapp/nbproject/genfiles.properties
+mainapp/nbproject/project.properties
+*.properties

@@ -42,7 +42,7 @@ public class SquaredPaper extends JFrame {
 
     try{ // Se establece la conexión con la base de datos Oracle Express
      conn = DriverManager.getConnection  
-     ("jdbc:oracle:thin:@santi-PC:1521:xe","santiago", "santiago");
+     ("jdbc:oracle:thin:@LAPTOP-UNKNNU64:1521:xe", "gato", "gato");
       sentencia = conn.createStatement();
     } catch( SQLException e ) {
       System.out.println("No hay conexión con la base de datos.");
@@ -70,14 +70,14 @@ public class SquaredPaper extends JFrame {
      resultado = sentencia.executeQuery(queryfinal);
      while (resultado.next())
       {
-       g.drawString("Bodega " + resultado.getString("orden"),resultado.getInt("a")*5,resultado.getInt("b")*5);
-       g.drawLine(resultado.getInt("a")*5,resultado.getInt("b")*5,resultado.getInt("c")*5,resultado.getInt("d")*5);
+       g.drawString("Bodega " + resultado.getString("orden"),resultado.getInt("a")*10,resultado.getInt("b")*10);
+       g.drawLine(resultado.getInt("a")*10,resultado.getInt("b")*10,resultado.getInt("c")*10,resultado.getInt("d")*10);
        //Estas cuatro instrucciones que siguen son solo para pintar el punto final, es decir, ´
        //mediante la instrucción g.drawString que está luego de cerrar el ciclo while
        aux = resultado.getInt("orden")+1;
        ultimoorden = Integer.toString(aux);
-       ultimax =  resultado.getInt("c")*5;
-       ultimay = resultado.getInt("d")*5;
+       ultimax =  resultado.getInt("c")*10;
+       ultimay = resultado.getInt("d")*10;
       }
       g.drawString("Bod. " + ultimoorden,ultimax, ultimay);
            
@@ -94,7 +94,7 @@ public class SquaredPaper extends JFrame {
    DrawWindow.setSize(500,500);
    DrawWindow.setResizable(true);
    DrawWindow.setLocation(200, 50);
-   DrawWindow.setTitle("Pintando la ruta que viene de la BD");
+   DrawWindow.setTitle("Ruta de recogida en bodegas");
    DrawWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    DrawWindow.setVisible(true);
  }

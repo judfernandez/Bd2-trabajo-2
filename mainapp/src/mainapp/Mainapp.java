@@ -24,7 +24,7 @@ public class Mainapp {
         DrawWindow.setSize(395,500);
         DrawWindow.setResizable(false);
         DrawWindow.setLocation(200, 50);
-        DrawWindow.setTitle("Pintando la ruta que viene de la BD");
+        DrawWindow.setTitle("Aplicacion para clientes");
         DrawWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         DrawWindow.setVisible(true);
         

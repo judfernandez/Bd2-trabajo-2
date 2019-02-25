@@ -106,21 +106,6 @@ public class SquaredPaper extends JFrame {
                 g.drawString(nombre_bodega, xi * 10, yi * 10);
                 g.drawLine(xi * 10, yi * 10, xf * 10, yf * 10);
             }
-            /*
-            resultado = sentencia.executeQuery(queryfinal);
-            while (resultado.next()) {
-                g.drawString("Bodega " + resultado.getString("orden"), resultado.getInt("a") * 10, resultado.getInt("b") * 10);
-                g.drawLine(resultado.getInt("a") * 10, resultado.getInt("b") * 10, resultado.getInt("c") * 10, resultado.getInt("d") * 10);
-                //Estas cuatro instrucciones que siguen son solo para pintar el punto final, es decir, ´
-                //mediante la instrucción g.drawString que está luego de cerrar el ciclo while
-                aux = resultado.getInt("orden") + 1;
-                ultimoorden = Integer.toString(aux);
-                ultimax = resultado.getInt("c") * 10;
-                ultimay = resultado.getInt("d") * 10;
-            }
-            g.drawString("Bod. " + ultimoorden, ultimax, ultimay);
-
-            //Se cierra la conexion con la BD*/
             conn.close();
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());

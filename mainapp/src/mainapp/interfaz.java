@@ -31,9 +31,11 @@ public class interfaz extends javax.swing.JFrame {
     Integer cantidad_3 = 0;
     Integer cantidad_4 = 0;
     Integer cantidad_5 = 0;
-
-   
-   
+    Integer cantidad_v1 = 0;
+    Integer cantidad_v2 = 0;
+    Integer cantidad_v3 = 0;
+    Integer cantidad_v4 = 0;
+    Integer cantidad_v5 = 0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,6 +78,7 @@ public class interfaz extends javax.swing.JFrame {
         label11 = new java.awt.Label();
         campojpanel5 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jDialog1.setTitle("Pedidos Invalidos");
 
@@ -199,7 +202,7 @@ public class interfaz extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         label2.setAlignment(java.awt.Label.CENTER);
-        label2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        label2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         label2.setText("Bienvenido Usurio");
 
         label3.setText(" A continuacion encontrara la lista de productos existentes ");
@@ -332,32 +335,29 @@ public class interfaz extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel1.setText("Dejar en blanco los espacios donde hayan 0s");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(99, 99, 99)
-                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(label4, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(label5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(37, 37, 37)
-                                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, Short.MAX_VALUE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label4, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                            .addComponent(label5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(44, 44, 44)
+                                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -370,22 +370,29 @@ public class interfaz extends javax.swing.JFrame {
                         .addGap(119, 119, 119)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(label2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(45, 45, 45))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -403,7 +410,7 @@ public class interfaz extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         List<String> updates = new ArrayList<>();
         Map<Integer, List<String>> dictionary = new HashMap<Integer, List<String>>();
@@ -441,7 +448,9 @@ public class interfaz extends javax.swing.JFrame {
         try {
             if ((this.campojpanel1.getText().length() > 0)) {
                 updates.clear();
+                
                 cantidad_1 = Integer.parseInt(this.campojpanel1.getText());
+                cantidad_v1 = cantidad_1;
 
                 try {
                     resultado = sentencia.executeQuery("SELECT r.cod_bodega,i.cod_producto,i.existencias from registro r, TABLE(r.inventario) i WHERE i.cod_producto=1 and i.existencias>0 ");
@@ -452,11 +461,12 @@ public class interfaz extends javax.swing.JFrame {
                         int diferencia = cantidad_1 - resultado.getInt("existencias");
 
                         if (diferencia < 0) {
-                            System.out.println(diferencia);
+                            System.out.println("la diferencia en el resultado - es = " + diferencia);
                             listatoEdit.add(Integer.toString(cantidad_1) + " unidades del producto 1");
                             String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
                                     + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = " + Integer.toString(resultado.getInt("existencias") - cantidad_1)
                                     + " WHERE cod_producto=1";
+                            System.out.println("valor u en caso - es = " + u);
                             updates.add(u);
                             cantidad_1 = 0;
                             break;
@@ -464,6 +474,7 @@ public class interfaz extends javax.swing.JFrame {
                             listatoEdit.add(Integer.toString(cantidad_1) + " unidades del producto 1");
                             String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
                                     + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = 0 WHERE cod_producto=1";
+                            System.out.println("valor u en caso = es = " + u);
                             updates.add(u);
                             cantidad_1 = 0;
                             break;
@@ -472,6 +483,7 @@ public class interfaz extends javax.swing.JFrame {
                             listatoEdit.add(Integer.toString(resultado.getInt("existencias")) + " unidades del producto 1");
                             String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
                                     + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = 0 WHERE cod_producto=1";
+                            System.out.println("valor u en caso = es = " + u);
                             updates.add(u);
                             cantidad_1 = cantidad_1 - resultado.getInt("existencias");
                         }
@@ -498,6 +510,7 @@ public class interfaz extends javax.swing.JFrame {
             if ((this.campojpanel2.getText().length() > 0)) {
                 updates.clear();
                 cantidad_2 = Integer.parseInt(this.campojpanel2.getText());
+                cantidad_v2 = cantidad_2;
                 try {
                     resultado = sentencia.executeQuery("SELECT r.cod_bodega,i.cod_producto,i.existencias from registro r, TABLE(r.inventario) i WHERE i.cod_producto=2 and i.existencias>0 ");
 
@@ -547,6 +560,7 @@ public class interfaz extends javax.swing.JFrame {
             if ((this.campojpanel3.getText().length() > 0)) {
                 updates.clear();
                 cantidad_3 = Integer.parseInt(this.campojpanel3.getText());
+                cantidad_v3 = cantidad_3;
                 try {
                     resultado = sentencia.executeQuery("SELECT r.cod_bodega,i.cod_producto,i.existencias from registro r, TABLE(r.inventario) i WHERE i.cod_producto=3 and i.existencias>0 ");
 
@@ -597,6 +611,7 @@ public class interfaz extends javax.swing.JFrame {
             if ((this.campojpanel4.getText().length() > 0)) {
                 updates.clear();
                 cantidad_4 = Integer.parseInt(this.campojpanel4.getText());
+                cantidad_v4 = cantidad_4;
                 try {
                     resultado = sentencia.executeQuery("SELECT r.cod_bodega,i.cod_producto,i.existencias from registro r, TABLE(r.inventario) i WHERE i.cod_producto=4 and i.existencias>0 ");
 
@@ -646,6 +661,7 @@ public class interfaz extends javax.swing.JFrame {
             if ((this.campojpanel5.getText().length() > 0)) {
                 updates.clear();
                 cantidad_5 = Integer.parseInt(this.campojpanel5.getText());
+                cantidad_v5 = cantidad_5;
                 try {
                     resultado = sentencia.executeQuery("SELECT r.cod_bodega,i.cod_producto,i.existencias from registro r, TABLE(r.inventario) i WHERE i.cod_producto=5 and i.existencias>0 ");
 
@@ -694,19 +710,24 @@ public class interfaz extends javax.swing.JFrame {
                 }
 
             }
-            System.out.println(dictionary.keySet());
 
             for (int n : dictionary.keySet()) {
                 if (dictionary.get(n).size() > 0) {
+                    System.out.println("La wea esta en el for");
+                    System.out.println("esto vale n " + n);
+                    System.out.println("esto es dictionary " + dictionary.keySet());
+                    System.out.println("valores de cantidad  " + cantidad_v1);
                     this.cod_bodegas_rutas.add(n);
                 }
+                System.out.println(dictionary.get(n));
             }
+            System.out.println(this.cod_bodegas_rutas);
 
             for (int n : this.cod_bodegas_rutas) {
                 System.out.println(n);
             }
             SquaredPaper DrawWindow = new SquaredPaper();
-            DrawWindow.cod_bodegas_rutas=this.cod_bodegas_rutas;
+            DrawWindow.cod_bodegas_rutas = this.cod_bodegas_rutas;
             DrawWindow.setSize(500, 500);
             DrawWindow.setResizable(true);
             DrawWindow.setLocation(200, 50);
@@ -736,8 +757,8 @@ public class interfaz extends javax.swing.JFrame {
         this.campojpanel5.setText("");
         this.jDialog1.hide();
     }//GEN-LAST:event_jButton2ActionPerformed
-    
-    
+
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.campojpanel1.setText("");
         this.campojpanel2.setText("");
@@ -801,6 +822,7 @@ public class interfaz extends javax.swing.JFrame {
     private javax.swing.JDialog jDialog1;
     private javax.swing.JDialog jDialog2;
     private javax.swing.JFrame jFrame1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

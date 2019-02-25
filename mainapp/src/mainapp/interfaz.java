@@ -31,11 +31,6 @@ public class interfaz extends javax.swing.JFrame {
     Integer cantidad_3 = 0;
     Integer cantidad_4 = 0;
     Integer cantidad_5 = 0;
-    Integer cantidad_v1 = 0;
-    Integer cantidad_v2 = 0;
-    Integer cantidad_v3 = 0;
-    Integer cantidad_v4 = 0;
-    Integer cantidad_v5 = 0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -446,11 +441,10 @@ public class interfaz extends javax.swing.JFrame {
         }
 
         try {
-            if ((this.campojpanel1.getText().length() > 0)) {
+            if ((this.campojpanel1.getText().length() > 0) && (!this.campojpanel1.getText().equals("0"))) {
                 updates.clear();
                 
                 cantidad_1 = Integer.parseInt(this.campojpanel1.getText());
-                cantidad_v1 = cantidad_1;
 
                 try {
                     resultado = sentencia.executeQuery("SELECT r.cod_bodega,i.cod_producto,i.existencias from registro r, TABLE(r.inventario) i WHERE i.cod_producto=1 and i.existencias>0 ");
@@ -507,10 +501,9 @@ public class interfaz extends javax.swing.JFrame {
                 }
 
             }
-            if ((this.campojpanel2.getText().length() > 0)) {
+            if ((this.campojpanel2.getText().length() > 0) && (!this.campojpanel2.getText().equals("0"))) {
                 updates.clear();
                 cantidad_2 = Integer.parseInt(this.campojpanel2.getText());
-                cantidad_v2 = cantidad_2;
                 try {
                     resultado = sentencia.executeQuery("SELECT r.cod_bodega,i.cod_producto,i.existencias from registro r, TABLE(r.inventario) i WHERE i.cod_producto=2 and i.existencias>0 ");
 
@@ -557,10 +550,9 @@ public class interfaz extends javax.swing.JFrame {
                 }
 
             }
-            if ((this.campojpanel3.getText().length() > 0)) {
+            if ((this.campojpanel3.getText().length() > 0) && (!this.campojpanel3.getText().equals("0"))) {
                 updates.clear();
                 cantidad_3 = Integer.parseInt(this.campojpanel3.getText());
-                cantidad_v3 = cantidad_3;
                 try {
                     resultado = sentencia.executeQuery("SELECT r.cod_bodega,i.cod_producto,i.existencias from registro r, TABLE(r.inventario) i WHERE i.cod_producto=3 and i.existencias>0 ");
 
@@ -608,10 +600,9 @@ public class interfaz extends javax.swing.JFrame {
                 }
 
             }
-            if ((this.campojpanel4.getText().length() > 0)) {
+            if ((this.campojpanel4.getText().length() > 0) && (!this.campojpanel4.getText().equals("0"))) {
                 updates.clear();
                 cantidad_4 = Integer.parseInt(this.campojpanel4.getText());
-                cantidad_v4 = cantidad_4;
                 try {
                     resultado = sentencia.executeQuery("SELECT r.cod_bodega,i.cod_producto,i.existencias from registro r, TABLE(r.inventario) i WHERE i.cod_producto=4 and i.existencias>0 ");
 
@@ -658,10 +649,9 @@ public class interfaz extends javax.swing.JFrame {
                 }
 
             }
-            if ((this.campojpanel5.getText().length() > 0)) {
+            if ((this.campojpanel5.getText().length() > 0) && (!this.campojpanel2.getText().equals("0"))) {
                 updates.clear();
                 cantidad_5 = Integer.parseInt(this.campojpanel5.getText());
-                cantidad_v5 = cantidad_5;
                 try {
                     resultado = sentencia.executeQuery("SELECT r.cod_bodega,i.cod_producto,i.existencias from registro r, TABLE(r.inventario) i WHERE i.cod_producto=5 and i.existencias>0 ");
 
@@ -716,7 +706,6 @@ public class interfaz extends javax.swing.JFrame {
                     System.out.println("La wea esta en el for");
                     System.out.println("esto vale n " + n);
                     System.out.println("esto es dictionary " + dictionary.keySet());
-                    System.out.println("valores de cantidad  " + cantidad_v1);
                     this.cod_bodegas_rutas.add(n);
                 }
                 System.out.println(dictionary.get(n));

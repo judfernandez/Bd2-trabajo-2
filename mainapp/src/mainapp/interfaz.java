@@ -6,6 +6,11 @@
 package mainapp;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.swing.JFrame;
 
 /**
  *
@@ -19,11 +24,16 @@ public class interfaz extends javax.swing.JFrame {
     public interfaz() {
         initComponents();
     }
+
+    public List<Integer> cod_bodegas_rutas = new ArrayList<>();
     Integer cantidad_1 = 0;
     Integer cantidad_2 = 0;
     Integer cantidad_3 = 0;
     Integer cantidad_4 = 0;
     Integer cantidad_5 = 0;
+
+   
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,6 +48,12 @@ public class interfaz extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jDialog2 = new javax.swing.JDialog();
+        jPanel7 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jFrame1 = new javax.swing.JFrame();
         label2 = new java.awt.Label();
         label3 = new java.awt.Label();
         label4 = new java.awt.Label();
@@ -60,7 +76,6 @@ public class interfaz extends javax.swing.JFrame {
         label11 = new java.awt.Label();
         campojpanel5 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
 
         jDialog1.setTitle("Pedidos Invalidos");
 
@@ -110,6 +125,75 @@ public class interfaz extends javax.swing.JFrame {
         jDialog1Layout.setVerticalGroup(
             jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        jDialog2.setTitle("Pedidos Invalidos");
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(102, 102, 255));
+        jButton3.setText("OK");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel3.setText(" No hay unidades suficientes");
+        jLabel3.setToolTipText("");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(88, 88, 88)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(92, Short.MAX_VALUE))
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jDialog2Layout = new javax.swing.GroupLayout(jDialog2.getContentPane());
+        jDialog2.getContentPane().setLayout(jDialog2Layout);
+        jDialog2Layout.setHorizontalGroup(
+            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog2Layout.setVerticalGroup(
+            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
+        jFrame1.getContentPane().setLayout(jFrame1Layout);
+        jFrame1Layout.setHorizontalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jFrame1Layout.setVerticalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -248,9 +332,6 @@ public class interfaz extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setText("max 50 unidades");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -266,7 +347,7 @@ public class interfaz extends javax.swing.JFrame {
                             .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(label4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(label4, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,9 +357,7 @@ public class interfaz extends javax.swing.JFrame {
                                     .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(37, 37, 37)
                                     .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(2, 2, 2)
-                                    .addComponent(jLabel1)
-                                    .addGap(0, 37, Short.MAX_VALUE)))))
+                                    .addGap(0, 0, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,18 +377,15 @@ public class interfaz extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel1))
+                .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -327,8 +403,11 @@ public class interfaz extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        List<String> updates = new ArrayList<>();
+        Map<Integer, List<String>> dictionary = new HashMap<Integer, List<String>>();
+
         Connection conn = null;
         Statement sentencia = null;
         ResultSet resultado = null;
@@ -347,41 +426,294 @@ public class interfaz extends javax.swing.JFrame {
             System.out.println("No hay conexi�n con la base de datos.");
 
         }
+        try {
+            resultado = sentencia.executeQuery("SELECT r.cod_bodega from registro r, TABLE(r.inventario) i where i.existencias>0 group by cod_bodega");
+            while (resultado.next()) {
+                List<String> listai = new ArrayList<>();
+                dictionary.put(resultado.getInt("cod_bodega"), listai);
+            }
+
+            //Se cierra la conexion con la BD
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
 
         try {
             if ((this.campojpanel1.getText().length() > 0)) {
+                updates.clear();
                 cantidad_1 = Integer.parseInt(this.campojpanel1.getText());
 
                 try {
-                    resultado = sentencia.executeQuery("SELECT r.cod_bodega,i.cod_producto,i.existencias from registro r, TABLE(r.inventario) i");
-                    while (resultado.next()) {
-                        System.out.println(resultado.getInt("cod_bodega")+"--"+resultado.getInt("cod_producto")+"--"+resultado.getInt("existencias"));
+                    resultado = sentencia.executeQuery("SELECT r.cod_bodega,i.cod_producto,i.existencias from registro r, TABLE(r.inventario) i WHERE i.cod_producto=1 and i.existencias>0 ");
 
+                    while (resultado.next()) {
+
+                        List<String> listatoEdit = dictionary.get(resultado.getInt("cod_bodega"));
+                        int diferencia = cantidad_1 - resultado.getInt("existencias");
+
+                        if (diferencia < 0) {
+                            System.out.println(diferencia);
+                            listatoEdit.add(Integer.toString(cantidad_1) + " unidades del producto 1");
+                            String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
+                                    + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = " + Integer.toString(resultado.getInt("existencias") - cantidad_1)
+                                    + " WHERE cod_producto=1";
+                            updates.add(u);
+                            cantidad_1 = 0;
+                            break;
+                        } else if (diferencia == 0) {
+                            listatoEdit.add(Integer.toString(cantidad_1) + " unidades del producto 1");
+                            String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
+                                    + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = 0 WHERE cod_producto=1";
+                            updates.add(u);
+                            cantidad_1 = 0;
+                            break;
+                        } else {
+
+                            listatoEdit.add(Integer.toString(resultado.getInt("existencias")) + " unidades del producto 1");
+                            String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
+                                    + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = 0 WHERE cod_producto=1";
+                            updates.add(u);
+                            cantidad_1 = cantidad_1 - resultado.getInt("existencias");
+                        }
+
+                        dictionary.put(resultado.getInt("cod_bodega"), listatoEdit);
                     }
-                    
-                    //Se cierra la conexion con la BD
-                    conn.close();
+
+                    if (cantidad_1 > 0) {
+                        System.out.println("p1");
+                        this.jDialog2.show();
+                        jDialog2.setSize(300, 200);
+                    } else {
+                        for (String n : updates) {
+                            System.out.println(n);
+                            resultado = sentencia.executeQuery(n);
+                        }
+                    }
+
                 } catch (SQLException e) {
                     System.out.println("Error: " + e.getMessage());
                 }
 
             }
             if ((this.campojpanel2.getText().length() > 0)) {
+                updates.clear();
                 cantidad_2 = Integer.parseInt(this.campojpanel2.getText());
+                try {
+                    resultado = sentencia.executeQuery("SELECT r.cod_bodega,i.cod_producto,i.existencias from registro r, TABLE(r.inventario) i WHERE i.cod_producto=2 and i.existencias>0 ");
+
+                    while (resultado.next()) {
+
+                        List<String> listatoEdit = dictionary.get(resultado.getInt("cod_bodega"));
+                        int diferencia = cantidad_2 - resultado.getInt("existencias");
+                        if (diferencia < 0) {
+                            listatoEdit.add(Integer.toString(cantidad_2) + " unidades del producto 2");
+                            String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
+                                    + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = " + Integer.toString(resultado.getInt("existencias") - cantidad_2)
+                                    + " WHERE cod_producto=2";
+                            updates.add(u);
+                            cantidad_2 = 0;
+                            break;
+                        } else if (diferencia == 0) {
+                            listatoEdit.add(Integer.toString(cantidad_2) + " unidades del producto 2");
+                            String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
+                                    + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = 0 WHERE cod_producto=2";
+                            updates.add(u);
+                            cantidad_2 = 0;
+                            break;
+                        } else {
+                            listatoEdit.add(Integer.toString(resultado.getInt("existencias")) + " unidades del producto 2");
+                            String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
+                                    + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = 0 WHERE cod_producto=2";
+                            updates.add(u);
+                            cantidad_2 = cantidad_2 - resultado.getInt("existencias");
+                        }
+                        dictionary.put(resultado.getInt("cod_bodega"), listatoEdit);
+                    }
+                    if (cantidad_2 > 0) {
+                        System.out.println("p2");
+                        this.jDialog2.show();
+                        jDialog2.setSize(300, 200);
+                    } else {
+                        for (String n : updates) {
+                            System.out.println(n);
+                            resultado = sentencia.executeQuery(n);
+                        }
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
 
             }
             if ((this.campojpanel3.getText().length() > 0)) {
+                updates.clear();
                 cantidad_3 = Integer.parseInt(this.campojpanel3.getText());
+                try {
+                    resultado = sentencia.executeQuery("SELECT r.cod_bodega,i.cod_producto,i.existencias from registro r, TABLE(r.inventario) i WHERE i.cod_producto=3 and i.existencias>0 ");
+
+                    while (resultado.next()) {
+
+                        List<String> listatoEdit = dictionary.get(resultado.getInt("cod_bodega"));
+                        int diferencia = cantidad_3 - resultado.getInt("existencias");
+                        if (diferencia < 0) {
+                            listatoEdit.add(Integer.toString(cantidad_3) + " unidades del producto 3");
+                            String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
+                                    + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = " + Integer.toString(resultado.getInt("existencias") - cantidad_2)
+                                    + " WHERE cod_producto=3";
+                            updates.add(u);
+                            cantidad_3 = 0;
+                            break;
+                        } else if (diferencia == 0) {
+                            listatoEdit.add(Integer.toString(cantidad_3) + " unidades del producto 3");
+                            String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
+                                    + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = 0 WHERE cod_producto=3";
+                            updates.add(u);
+                            cantidad_3 = 0;
+                            break;
+                        } else {
+                            listatoEdit.add(Integer.toString(resultado.getInt("existencias")) + " unidades del producto 3");
+                            String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
+                                    + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = 0 WHERE cod_producto=3";
+                            updates.add(u);
+                            cantidad_3 = cantidad_3 - resultado.getInt("existencias");
+                        }
+                        dictionary.put(resultado.getInt("cod_bodega"), listatoEdit);
+                    }
+                    if (cantidad_3 > 0) {
+                        System.out.println("p3");
+                        this.jDialog2.show();
+                        jDialog2.setSize(300, 200);
+                    } else {
+                        for (String n : updates) {
+                            System.out.println(n);
+                            resultado = sentencia.executeQuery(n);
+                        }
+                    }
+
+                } catch (SQLException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
 
             }
             if ((this.campojpanel4.getText().length() > 0)) {
+                updates.clear();
                 cantidad_4 = Integer.parseInt(this.campojpanel4.getText());
+                try {
+                    resultado = sentencia.executeQuery("SELECT r.cod_bodega,i.cod_producto,i.existencias from registro r, TABLE(r.inventario) i WHERE i.cod_producto=4 and i.existencias>0 ");
+
+                    while (resultado.next()) {
+
+                        List<String> listatoEdit = dictionary.get(resultado.getInt("cod_bodega"));
+                        int diferencia = cantidad_4 - resultado.getInt("existencias");
+                        if (diferencia < 0) {
+                            listatoEdit.add(Integer.toString(cantidad_4) + " unidades del producto 4");
+                            String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
+                                    + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = " + Integer.toString(resultado.getInt("existencias") - cantidad_2)
+                                    + " WHERE cod_producto=4";
+                            updates.add(u);
+                            cantidad_4 = 0;
+                            break;
+                        } else if (diferencia == 0) {
+                            listatoEdit.add(Integer.toString(cantidad_4) + " unidades del producto 4");
+                            String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
+                                    + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = 0 WHERE cod_producto=4";
+                            updates.add(u);
+                            cantidad_4 = 0;
+                            break;
+                        } else {
+                            listatoEdit.add(Integer.toString(resultado.getInt("existencias")) + " unidades del producto 4");
+                            String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
+                                    + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = 0 WHERE cod_producto=4";
+                            updates.add(u);
+                            cantidad_4 = cantidad_4 - resultado.getInt("existencias");
+                        }
+                        dictionary.put(resultado.getInt("cod_bodega"), listatoEdit);
+                    }
+                    if (cantidad_4 > 0) {
+                        System.out.println("p4");
+                        this.jDialog2.show();
+                        jDialog2.setSize(300, 200);
+                    } else {
+                        for (String n : updates) {
+                            System.out.println(n);
+                            resultado = sentencia.executeQuery(n);
+                        }
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
 
             }
             if ((this.campojpanel5.getText().length() > 0)) {
+                updates.clear();
                 cantidad_5 = Integer.parseInt(this.campojpanel5.getText());
+                try {
+                    resultado = sentencia.executeQuery("SELECT r.cod_bodega,i.cod_producto,i.existencias from registro r, TABLE(r.inventario) i WHERE i.cod_producto=5 and i.existencias>0 ");
+
+                    while (resultado.next()) {
+
+                        List<String> listatoEdit = dictionary.get(resultado.getInt("cod_bodega"));
+                        int diferencia = cantidad_5 - resultado.getInt("existencias");
+                        if (diferencia < 0) {
+                            listatoEdit.add(Integer.toString(cantidad_5) + " unidades del producto 5");
+                            String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
+                                    + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = " + Integer.toString(resultado.getInt("existencias") - cantidad_5)
+                                    + " WHERE cod_producto=5";
+                            updates.add(u);
+                            cantidad_5 = 0;
+                            break;
+                        } else if (diferencia == 0) {
+                            listatoEdit.add(Integer.toString(cantidad_5) + " unidades del producto 5");
+                            String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
+                                    + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = 0 WHERE cod_producto=5";
+                            updates.add(u);
+                            cantidad_5 = 0;
+                            break;
+                        } else {
+                            listatoEdit.add(Integer.toString(resultado.getInt("existencias")) + " unidades del producto 5");
+                            String u = "UPDATE TABLE(SELECT inventario FROM registro where cod_bodega="
+                                    + Integer.toString(resultado.getInt("cod_bodega")) + ") SET existencias = 0 WHERE cod_producto=5";
+                            updates.add(u);
+                            cantidad_5 = cantidad_5 - resultado.getInt("existencias");
+                        }
+                        dictionary.put(resultado.getInt("cod_bodega"), listatoEdit);
+                    }
+                    if (cantidad_5 > 0) {
+                        System.out.println("p5");
+                        this.jDialog2.show();
+                        jDialog2.setSize(300, 200);
+                    } else {
+                        for (String n : updates) {
+                            System.out.println(n);
+                            resultado = sentencia.executeQuery(n);
+                        }
+                    }
+                    conn.commit();
+                    conn.close();
+                } catch (SQLException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
 
             }
+            System.out.println(dictionary.keySet());
+
+            for (int n : dictionary.keySet()) {
+                if (dictionary.get(n).size() > 0) {
+                    this.cod_bodegas_rutas.add(n);
+                }
+            }
+
+            for (int n : this.cod_bodegas_rutas) {
+                System.out.println(n);
+            }
+            SquaredPaper DrawWindow = new SquaredPaper();
+            DrawWindow.cod_bodegas_rutas=this.cod_bodegas_rutas;
+            DrawWindow.setSize(500, 500);
+            DrawWindow.setResizable(true);
+            DrawWindow.setLocation(200, 50);
+            DrawWindow.setTitle("Pintando la ruta que viene de la BD");
+            DrawWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            DrawWindow.setVisible(true);
+
         } catch (Exception e) {
             System.out.println((e));
             this.jDialog1.show();
@@ -404,6 +736,16 @@ public class interfaz extends javax.swing.JFrame {
         this.campojpanel5.setText("");
         this.jDialog1.hide();
     }//GEN-LAST:event_jButton2ActionPerformed
+    
+    
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.campojpanel1.setText("");
+        this.campojpanel2.setText("");
+        this.campojpanel3.setText("");
+        this.campojpanel4.setText("");
+        this.campojpanel5.setText("");
+        this.jDialog2.hide();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -455,15 +797,20 @@ public class interfaz extends javax.swing.JFrame {
     private javax.swing.JTextField campojpanel5;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JDialog jDialog1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JDialog jDialog2;
+    private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private java.awt.Label label1;
     private java.awt.Label label10;
     private java.awt.Label label11;
